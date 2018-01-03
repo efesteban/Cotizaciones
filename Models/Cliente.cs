@@ -10,19 +10,9 @@ namespace Cotizaciones.Models {
     /// Esta clase pertenece al modelo del Dominio y posee las siguientes restricciones:
     /// - No permite valores null en sus atributos.
     /// </remarks>
-    public class Persona
+    public class Cliente : Persona
     {
-        public int Id { get; set; }
-
-        public string Rut { get; set; }
-
-        public string Nombre { get; set; }
-
-        public string Paterno { get; set; }
-
-        public string Materno { get; set; }
-
-        public string Email {get;set;}
+        private string rol {get;set;}
 
     }
 }

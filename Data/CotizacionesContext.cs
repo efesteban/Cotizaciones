@@ -15,6 +15,10 @@ namespace Cotizaciones.Data {
         }
 
         public DbSet<Persona> Personas { get; set; }
+        public DbSet<Cotizacion> Cotizaciones { get; set; }
+        public DbSet<Cliente> Clientes {get; set;}
+        public DbSet<Usuario> Usuarios {get; set;}
+
 
     }
 }

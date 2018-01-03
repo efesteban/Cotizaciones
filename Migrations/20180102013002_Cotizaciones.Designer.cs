@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore.ValueGeneration;
 using System;
 
 namespace Cotizaciones.Migrations
 {
     [DbContext(typeof(CotizacionesContext))]
-    partial class CotizacionesContextModelSnapshot : ModelSnapshot
+    [Migration("20180102013002_Cotizaciones")]
+    partial class Cotizaciones
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,11 +42,6 @@ namespace Cotizaciones.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired();
-
-                    b.Property<string>("Email");
-
                     b.Property<string>("Materno");
 
                     b.Property<string>("Nombre");
@@ -58,31 +53,6 @@ namespace Cotizaciones.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Personas");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Persona");
-                });
-
-            modelBuilder.Entity("Cotizaciones.Models.Cliente", b =>
-                {
-                    b.HasBaseType("Cotizaciones.Models.Persona");
-
-
-                    b.ToTable("Cliente");
-
-                    b.HasDiscriminator().HasValue("Cliente");
-                });
-
-            modelBuilder.Entity("Cotizaciones.Models.Usuario", b =>
-                {
-                    b.HasBaseType("Cotizaciones.Models.Persona");
-
-                    b.Property<string>("Contraseña");
-
-                    b.Property<int>("Perfil");
-
-                    b.ToTable("Usuario");
-
-                    b.HasDiscriminator().HasValue("Usuario");
                 });
 #pragma warning restore 612, 618
         }

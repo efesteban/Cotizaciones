@@ -10,22 +10,22 @@ using Cotizaciones.Models;
 
 namespace Cotizaciones.Controllers
 {
-    public class PersonaController : Controller
+    public class CotizacionController : Controller
     {
         private readonly CotizacionesContext _context;
 
-        public PersonaController(CotizacionesContext context)
+        public CotizacionController(CotizacionesContext context)
         {
             _context = context;
         }
 
-        // GET: Persona
+        // GET: Cotizacion
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Personas.ToListAsync());
+            return View(await _context.Cotizaciones.ToListAsync());
         }
 
-        // GET: Persona/Details/5
+        // GET: Cotizacion/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace Cotizaciones.Controllers
                 return NotFound();
             }
 
-            var persona = await _context.Personas
+            var cotizacion = await _context.Cotizaciones
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (persona == null)
+            if (cotizacion == null)
             {
                 return NotFound();
             }
 
-            return View(persona);
+            return View(cotizacion);
         }
 
-        // GET: Persona/Create
+        // GET: Cotizacion/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Persona/Create
+        // POST: Cotizacion/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Email,Rut,Nombre,Paterno,Materno")] Persona persona)
+        public async Task<IActionResult> Create([Bind("Id,Valor,Estado,Descripcion")] Cotizacion cotizacion)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(persona);
+                _context.Add(cotizacion);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(persona);
+            return View(cotizacion);
         }
 
-        // GET: Persona/Edit/5
+        // GET: Cotizacion/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace Cotizaciones.Controllers
                 return NotFound();
             }
 
-            var persona = await _context.Personas.SingleOrDefaultAsync(m => m.Id == id);
-            if (persona == null)
+            var cotizacion = await _context.Cotizaciones.SingleOrDefaultAsync(m => m.Id == id);
+            if (cotizacion == null)
             {
                 return NotFound();
             }
-            return View(persona);
+            return View(cotizacion);
         }
 
-        // POST: Persona/Edit/5
+        // POST: Cotizacion/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Email,Rut,Nombre,Paterno,Materno")] Persona persona)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Valor,Estado,Descripcion")] Cotizacion cotizacion)
         {
-            if (id != persona.Id)
+            if (id != cotizacion.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace Cotizaciones.Controllers
             {
                 try
                 {
-                    _context.Update(persona);
+                    _context.Update(cotizacion);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PersonaExists(persona.Id))
+                    if (!CotizacionExists(cotizacion.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace Cotizaciones.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(persona);
+            return View(cotizacion);
         }
 
-        // GET: Persona/Delete/5
+        // GET: Cotizacion/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace Cotizaciones.Controllers
                 return NotFound();
             }
 
-            var persona = await _context.Personas
+            var cotizacion = await _context.Cotizaciones
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (persona == null)
+            if (cotizacion == null)
             {
                 return NotFound();
             }
 
-            return View(persona);
+            return View(cotizacion);
         }
 
-        // POST: Persona/Delete/5
+        // POST: Cotizacion/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var persona = await _context.Personas.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Personas.Remove(persona);
+            var cotizacion = await _context.Cotizaciones.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Cotizaciones.Remove(cotizacion);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PersonaExists(int id)
+        private bool CotizacionExists(int id)
         {
-            return _context.Personas.Any(e => e.Id == id);
+            return _context.Cotizaciones.Any(e => e.Id == id);
         }
     }
 }

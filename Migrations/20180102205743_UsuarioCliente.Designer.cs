@@ -11,9 +11,10 @@ using System;
 namespace Cotizaciones.Migrations
 {
     [DbContext(typeof(CotizacionesContext))]
-    partial class CotizacionesContextModelSnapshot : ModelSnapshot
+    [Migration("20180102205743_UsuarioCliente")]
+    partial class UsuarioCliente
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,8 +76,6 @@ namespace Cotizaciones.Migrations
             modelBuilder.Entity("Cotizaciones.Models.Usuario", b =>
                 {
                     b.HasBaseType("Cotizaciones.Models.Persona");
-
-                    b.Property<string>("Contraseña");
 
                     b.Property<int>("Perfil");
 

@@ -10,22 +10,22 @@ using Cotizaciones.Models;
 
 namespace Cotizaciones.Controllers
 {
-    public class PersonaController : Controller
+    public class UsuarioController : Controller
     {
         private readonly CotizacionesContext _context;
 
-        public PersonaController(CotizacionesContext context)
+        public UsuarioController(CotizacionesContext context)
         {
             _context = context;
         }
 
-        // GET: Persona
+        // GET: Usuario
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Personas.ToListAsync());
+            return View(await _context.Usuarios.ToListAsync());
         }
 
-        // GET: Persona/Details/5
+        // GET: Usuario/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,48 @@ namespace Cotizaciones.Controllers
                 return NotFound();
             }
 
-            var persona = await _context.Personas
+            var usuario = await _context.Usuarios
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (persona == null)
+            if (usuario == null)
             {
                 return NotFound();
             }
 
-            return View(persona);
+            return View(usuario);
         }
 
-        // GET: Persona/Create
+        // GET: Usuario/Create
         public IActionResult Create()
         {
+            var enumData = from Perfil e in Enum.GetValues(typeof(Perfil))
+               select new
+                    {
+                      ID = (int)e,
+                      Name = e.ToString()
+                    };
+
+            ViewBag.perfil = new SelectList(enumData,"ID","Name");
+
             return View();
         }
 
-        // POST: Persona/Create
+        // POST: Usuario/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Email,Rut,Nombre,Paterno,Materno")] Persona persona)
+        public async Task<IActionResult> Create([Bind("Perfil,Contraseña,Id,Rut,Nombre,Paterno,Materno,Email")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(persona);
+                _context.Add(usuario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(persona);
+            return View(usuario);
         }
 
-        // GET: Persona/Edit/5
+        // GET: Usuario/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +82,22 @@ namespace Cotizaciones.Controllers
                 return NotFound();
             }
 
-            var persona = await _context.Personas.SingleOrDefaultAsync(m => m.Id == id);
-            if (persona == null)
+            var usuario = await _context.Usuarios.SingleOrDefaultAsync(m => m.Id == id);
+            if (usuario == null)
             {
                 return NotFound();
             }
-            return View(persona);
+            return View(usuario);
         }
 
-        // POST: Persona/Edit/5
+        // POST: Usuario/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Email,Rut,Nombre,Paterno,Materno")] Persona persona)
+        public async Task<IActionResult> Edit(int id, [Bind("Perfil,Contraseña,Id,Rut,Nombre,Paterno,Materno,Email")] Usuario usuario)
         {
-            if (id != persona.Id)
+            if (id != usuario.Id)
             {
                 return NotFound();
             }
@@ -97,12 +106,12 @@ namespace Cotizaciones.Controllers
             {
                 try
                 {
-                    _context.Update(persona);
+                    _context.Update(usuario);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PersonaExists(persona.Id))
+                    if (!UsuarioExists(usuario.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +122,10 @@ namespace Cotizaciones.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(persona);
+            return View(usuario);
         }
 
-        // GET: Persona/Delete/5
+        // GET: Usuario/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +133,30 @@ namespace Cotizaciones.Controllers
                 return NotFound();
             }
 
-            var persona = await _context.Personas
+            var usuario = await _context.Usuarios
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (persona == null)
+            if (usuario == null)
             {
                 return NotFound();
             }
 
-            return View(persona);
+            return View(usuario);
         }
 
-        // POST: Persona/Delete/5
+        // POST: Usuario/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var persona = await _context.Personas.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Personas.Remove(persona);
+            var usuario = await _context.Usuarios.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Usuarios.Remove(usuario);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PersonaExists(int id)
+        private bool UsuarioExists(int id)
         {
-            return _context.Personas.Any(e => e.Id == id);
+            return _context.Usuarios.Any(e => e.Id == id);
         }
     }
 }

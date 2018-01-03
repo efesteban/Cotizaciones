@@ -1,26 +1,32 @@
-@model Cotizaciones.Models.Persona
+@model Cotizaciones.Models.Usuario
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
-<h2>Create</h2>
+<h2>Edit</h2>
 
-<h4>Persona</h4>
+<h4>Usuario</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create" name="f1">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Perfil" class="control-label"></label>
+                <input asp-for="Perfil" class="form-control" />
+                <span asp-validation-for="Perfil" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Contraseña" class="control-label"></label>
+                <input asp-for="Contraseña" class="form-control" />
+                <span asp-validation-for="Contraseña" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Rut" class="control-label"></label>
                 <input asp-for="Rut" class="form-control" />
                 <span asp-validation-for="Rut" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Nombre" class="control-label"></label>
@@ -37,20 +43,13 @@
                 <input asp-for="Materno" class="form-control" />
                 <span asp-validation-for="Materno" class="text-danger"></span>
             </div>
-
             <div class="form-group">
-                <label asp-for="Contraseña" class="control-label"></label>
-                <inp class="form-control" type="password" name="pass1">
-                <span asp-validation-for="Contraseña" class="text-danger"></span>
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-
             <div class="form-group">
-                <label class="control-label"></label>
-                <input class="form-control" type="password" name="pass2" />
-            </div>
-
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" onClick="comprobarClave()" />
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </form>
     </div>
@@ -63,16 +62,3 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-
-<script> 
-function comprobarClave(){ 
-   	clave1 = document.f1.pass1.value 
-   	clave2 = document.f1.pass2.value 
-
-   	if (clave1 == clave2) 
-      	alert("Las dos claves son iguales...\nRealizaríamos las acciones del caso positivo") 
-        location.href='@Url.Action("Create","Persona")';
-   	else 
-      	alert("Las dos claves son distintas...\nRealizaríamos las acciones del caso negativo") 
-} 
-</script> 
