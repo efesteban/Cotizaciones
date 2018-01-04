@@ -12,21 +12,24 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
+
             <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="Estado" /> @Html.DisplayNameFor(model => model.Estado)
-                    </label>
-                </div>
+                <label asp-for="Fecha" class="control-label"></label>
+                <input asp-for="Fecha" class="form-control" width="50%" />
+                <span asp-validation-for="Fecha" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ClienteID" class="control-label"></label>
+                <input asp-for="ClienteID" class="form-control" width="50%" />
+                <span asp-validation-for="ClienteID" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Descripcion" class="control-label"></label>
-                <textarea asp-for ="Descripcion" class="form-control" rows="3" placeholder="Descripcion" required ></textarea>
+                <textarea asp-for="Descripcion" class="form-control" rows="3"></textarea>
                 <span asp-validation-for="Descripcion" class="text-danger"></span>
             </div>
-
 
             <div class="form-group">
                 <label asp-for="Valor" class="control-label"></label>

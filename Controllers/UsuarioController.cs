@@ -125,6 +125,22 @@ namespace Cotizaciones.Controllers
             return View(usuario);
         }
 
+
+        [HttpPost] 
+        public async Task<JsonResult> CrearAsync(Usuario u) {  
+            try {  
+                if (!ModelState.IsValid) return Json(false);
+                await Create(u);
+                return Json(true);  
+            } catch {  
+                return Json(false);  
+            }  
+        }  
+
+
+
+
+
         // GET: Usuario/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

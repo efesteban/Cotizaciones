@@ -19,9 +19,11 @@ namespace Cotizaciones.Models {
 
         public bool Estado {get;set;}
 
-        public int PersonaID {get; set;}
+        public int ClienteID {get; set;}
 
         public string Descripcion {get;set;}
+
+        public string Fecha {get;set;}
 
     }
 }

@@ -16,7 +16,7 @@ namespace Cotizaciones.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Descripcion = table.Column<string>(nullable: true),
                     Estado = table.Column<bool>(nullable: false),
-                    PersonaID = table.Column<int>(nullable: false),
+                    ClienteID = table.Column<int>(nullable: false),
                     Valor = table.Column<double>(nullable: false)
                 },
                 constraints: table =>

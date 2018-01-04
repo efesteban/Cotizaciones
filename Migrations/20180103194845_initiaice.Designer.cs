@@ -11,9 +11,10 @@ using System;
 namespace Cotizaciones.Migrations
 {
     [DbContext(typeof(CotizacionesContext))]
-    partial class CotizacionesContextModelSnapshot : ModelSnapshot
+    [Migration("20180103194845_initiaice")]
+    partial class initiaice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

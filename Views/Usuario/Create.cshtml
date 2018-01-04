@@ -8,6 +8,7 @@
 
 <h4>Usuario</h4>
 <hr />
+
 <div class="row">
     <div class="col-md-4">
         <form action="" id="myForm" name="f1">
@@ -77,19 +78,32 @@
  function onSubmitButtonClick() 
     {
     
-        var rut = document.getElementById("Rut").value;
-        var email = document.getElementById("Email").value;
-        var nombre = document.getElementById("Nombre").value;
-        var paterno = document.getElementById("Paterno").value;
-        var materno = document.getElementById("Materno").value;
-        var pass1 = document.getElementById("pass1").value;
-        var pass2 = document.getElementById("pass2").value;
-        var perfil = document.getElementById("perfil").value;
-       
+        var persona = { rut: document.getElementById("Rut").value,
+        email: document.getElementById("Email").value,
+        nombre: document.getElementById("Nombre").value,
+        paterno: document.getElementById("Paterno").value,
+        materno: document.getElementById("Materno").value,
+        contraseña: document.getElementById("pass1").value,
+        perfil: document.getElementById("perfil").value
+        }
 
-        if (pass1 == pass2) {
+        if (document.getElementById("pass1").value == document.getElementById("pass2").value) {
             alert("Las dos claves son iguales...\nRealizaríamos las acciones del caso positivo"); 
-
+            
+            $.ajax({  
+                url: "@Url.Action("CrearAsync", "Usuario")",  
+                type: "POST",  
+                data: persona,  
+                success: function(result) {  
+                    var modelStatus = $('.model-status');  
+                    if (result) modelStatus.text("Estado: Enviado con éxito");  
+                    else modelStatus.text("Estado: Enviado con error. Compruebe que ha rellenado todos los campos");
+                    window.location = "@Url.Action("Index","Usuario")";
+                },  
+                error: function(jqXHR, textStatus, error) {  
+                    $('.model-status').text("Estado: Error inesperado");  
+                }  
+            });
             
         }
       	
@@ -99,4 +113,9 @@
       	   
    
     }
+</script>
+
+
+<script>
+      
 </script>

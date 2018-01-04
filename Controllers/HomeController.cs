@@ -53,21 +53,43 @@ namespace Cotizaciones.Controllers
                 return NotFound();
             }
 
-            var persona = _context.Personas.Where(m => m.Email == email);
-            
-            if (persona == null)
-            {
+            var usuario = _context.Usuarios.Where(m => m.Email == email);
+
+            if(usuario == null){
                 return NotFound();
             }else
-            {   
+            {
 
+            int cant = usuario.Count();
+            if (usuario.Count() == 0)
+            {
+                usuario = _context.Usuarios.Where(m => m.Rut == email);
                 
+                if(usuario.Count() == 0){
+                    return NotFound();
+                }else
+                {
+                    if(usuario.First().Contraseña.Equals(pass))
+                    {   
+                        ViewData["persona"] = usuario.First();
+                        return View("~/Views/Home/Inicio.cshtml"); 
+                    }else{
+                        return NotFound();
+                    }
+                }
 
-                ViewData["persona"] = persona.First();
-                return View("~/Views/Home/Inicio.cshtml"); 
+            }else
+            {
+                if(usuario.First().Contraseña.Equals(pass))
+                {   
+                    ViewData["persona"] = usuario.First();
+                    return View("~/Views/Home/Inicio.cshtml"); 
+                }else{
+                    return NotFound();
+                }
             }
 
-
+            }
 
                
         }

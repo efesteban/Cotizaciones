@@ -54,7 +54,7 @@ namespace Cotizaciones.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Valor,Estado,Descripcion")] Cotizacion cotizacion)
+        public async Task<IActionResult> Create([Bind("Id,Valor,Estado,Descripcion,Fecha")] Cotizacion cotizacion)
         {
             if (ModelState.IsValid)
             {
